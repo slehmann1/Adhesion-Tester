@@ -1,0 +1,88 @@
+﻿<Page x:Class="AdhesionTest.trialViewer"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:oxy="http://oxyplot.org/wpf"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:AdhesionTest"
+      mc:Ignorable="d"
+      d:DesignHeight="600" d:DesignWidth="1000"
+      Title="trialViewer">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Page.DataContext>
+        <local:MainViewModel />
+    </Page.DataContext>
+    <Grid Margin="0,0,0,0">
+        <Grid Margin="10,10,10,200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <!--There is an empty column in the middle-->
+                <ColumnDefinition Width="775*" />
+                <ColumnDefinition Width="20*" />
+                <ColumnDefinition Width="775*" />
+            </Grid.ColumnDefinitions>
+
+
+            <oxy:PlotView Model="{Binding normalPlot}" x:Name="Normal_Force" Grid.Column="0" />
+
+
+            <oxy:PlotView Model="{Binding shearPlot}" x:Name="Shear_Force" Grid.Column="2" />
+            <Label x:Name="normalForceLabel" Content="No probe detected" HorizontalAlignment="Right" Opacity="0.8"
+                   Margin="0,10,10,0" VerticalAlignment="Top" FontWeight="Light" FontSize="18" />
+            <Label x:Name="shearForceLabel" Content="No probe detected" HorizontalAlignment="Right" Opacity="0.8"
+                   Margin="0,10,10,0" VerticalAlignment="Top" FontWeight="Light" FontSize="18" Grid.Column="2" />
+
+        </Grid>
+        <TextBlock x:Name="textBlock" VerticalAlignment="Bottom" Foreground="Salmon" HorizontalAlignment="Right"
+                   Margin="0,0,80,25" TextWrapping="Wrap" Text="Stop trial" FontSize="18" Height="24" Width="75" />
+        <Button x:Name="button" Grid.ZIndex="10" Margin="10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Style="{DynamicResource MetroCircleButtonStyle}" Height="70" Width="70" Grid.Column="1" Grid.Row="1"
+                Click="stopTrialClick">
+            <Rectangle Fill="Salmon" Width="50" Height="28">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Opacity="0.8" Visual="{StaticResource appbar_warning}" Stretch="Uniform" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Button>
+        <Grid Height="120" Margin="10,0,10,70" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Padding="4" Name="cycleIndicatorText" HorizontalAlignment="Center" Text="Testing cycle 0 of 0"
+                       VerticalAlignment="Center" FontWeight="Thin" FontSize="18" Opacity="0.8" />
+            <TextBlock Padding="4" Name="elapsedTimeText" HorizontalAlignment="Center"
+                       Text="Time elapsed: 0 minutes and 0 seconds" VerticalAlignment="Center" FontWeight="Thin"
+                       FontSize="18" Opacity="0.8" Grid.Column="1" />
+            <TextBlock Padding="4" Name="previousAdhesionText" HorizontalAlignment="Center" Text="Last adhesion:"
+                       VerticalAlignment="Center" FontWeight="Thin" FontSize="18" Opacity="0.8" Grid.Row="1" />
+            <TextBlock Padding="4" Name="lastPreloadText" HorizontalAlignment="Center" Text="Last preload:"
+                       VerticalAlignment="Center" FontWeight="Thin" FontSize="18" Opacity="0.8" Grid.Row="1"
+                       Grid.Column="1" />
+            <TextBlock Padding="4" Name="maximumAdhesionText" HorizontalAlignment="Center" Text="Maximum adhesion:"
+                       VerticalAlignment="Center" FontWeight="Thin" FontSize="18" Opacity="0.8" Grid.Row="2"
+                       Grid.Column="1" />
+            <TextBlock Padding="4" Name="averageAdhesionText" HorizontalAlignment="Center" Text="Average adhesion:"
+                       VerticalAlignment="Center" FontWeight="Thin" FontSize="18" Opacity="0.8" Grid.Row="2" />
+        </Grid>
+    </Grid>
+
+
+</Page>

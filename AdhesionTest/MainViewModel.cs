@@ -1,21 +1,17 @@
-﻿namespace AdhesionTest
+﻿using System;
+using System.Collections.Generic;
+using System.Windows.Controls;
+using OxyPlot;
+using OxyPlot.Axes;
+using OxyPlot.Series;
+
+namespace AdhesionTest
 {
-    using OxyPlot;
-    using OxyPlot.Series;
-    using System;
-    using System.Windows.Threading;
     public class MainViewModel
     {
-        private const String NORMTITLE = "Normal Force";
-        private const String SHEARTITLE = "Shear Force";
-        private const int TIMEHISTORY = 60000;//The amount of time history that should be kept in the graph
-        private static DateTime timerStart { get; set; }
-
-        public static PlotModel normalPlot { get; set; }
-        public static PlotModel shearPlot { get; set; }
-
-        public static bool smoothData { get; set; }
-        public static DAQ dataAcquirer { get; set; }
+        private const string NORMTITLE = "Normal Force";
+        private const string SHEARTITLE = "Shear Force";
+        private const int TIMEHISTORY = 600; //The amount of time history that should be kept in the graph
 
         public MainViewModel()
         {
@@ -24,44 +20,81 @@
             normalPlot = new PlotModel();
             normalPlot.Series.Add(new LineSeries());
             normalPlot.Title = NORMTITLE;
+            normalPlot.Axes.Add(new LinearAxis {Position = AxisPosition.Bottom, Title = "Time Elapsed (seconds)"});
+            normalPlot.Axes.Add(new LinearAxis {Position = AxisPosition.Left, Title = "Force (mN)"});
+            normalPlot.DefaultColors = new List<OxyColor>
+            {
+                OxyColor.FromRgb(30, 144, 255)
+            };
 
             shearPlot = new PlotModel();
             shearPlot.Series.Add(new LineSeries());
+            shearPlot.DefaultColors = new List<OxyColor>
+            {
+                OxyColor.FromRgb(30, 144, 255)
+            };
             shearPlot.Title = SHEARTITLE;
+            shearPlot.Axes.Add(new LinearAxis {Position = AxisPosition.Bottom, Title = "Time Elapsed (seconds)"});
+            shearPlot.Axes.Add(new LinearAxis {Position = AxisPosition.Left, Title = "Force (mN)"});
 
             timerStart = DateTime.Now;
         }
 
-        public static void updateGraph()
+        private static DateTime timerStart { get; set; }
+
+        public static PlotModel normalPlot { get; set; }
+        public static PlotModel shearPlot { get; set; }
+
+        public static Label normalForceLabel { get; set; }
+        public static Label shearForceLabel { get; set; }
+
+        public static bool smoothData { get; set; }
+        public static DAQ dataAcquirer { get; private set; }
+
+        public static void setDataAcquirer(DAQ value)
         {
+            dataAcquirer = value;
+            dataAcquirer.dataAcquiredEvent += updateGraph;
+        }
 
-            double time = (DateTime.Now - timerStart).TotalMilliseconds;
-            time /= 1000;
-
-            (normalPlot.Series[0] as LineSeries).Points.Add(new DataPoint(time, dataAcquirer.normalForces[dataAcquirer.normalForces.Count - 1]));
-
-            //If there are too many elements, remove the first
-            if ((normalPlot.Series[0] as LineSeries).Points.Count * Constants.DAQFREQ > TIMEHISTORY)
+        private static void updateGraph(object sender, EventArgs e)
+        {
+            if (dataAcquirer.dataPoints.Count > 0)
             {
-                (normalPlot.Series[0] as LineSeries).Points.RemoveAt(0);
-            }
+                var time = (DateTime.Now - timerStart).TotalMilliseconds;
+                time /= 1000;
+                (normalPlot.Series[0] as LineSeries).Points.Add(new DataPoint(time,
+                    dataAcquirer.dataPoints[dataAcquirer.dataPoints.Count - 1].normalForce));
+                //If there are too many elements, remove the first
+                if ((normalPlot.Series[0] as LineSeries).Points.Count*Constants.DAQFREQ > TIMEHISTORY)
+                {
+                    (normalPlot.Series[0] as LineSeries).Points.RemoveAt(0);
+                }
 
                 (normalPlot.Series[0] as LineSeries).Smooth = smoothData;
-            normalPlot.InvalidatePlot(true);
-            Console.WriteLine("GRAPH " + (normalPlot.Series[0] as LineSeries).Points.Count);
+                normalPlot.InvalidatePlot(true);
 
-            (shearPlot.Series[0] as LineSeries).Points.Add(new DataPoint(time, dataAcquirer.shearForces[dataAcquirer.shearForces.Count - 1]));
+                (shearPlot.Series[0] as LineSeries).Points.Add(new DataPoint(time,
+                    dataAcquirer.dataPoints[dataAcquirer.dataPoints.Count - 1].shearForce));
 
-            //If there are too many elements, remove the first
-            if ((shearPlot.Series[0] as LineSeries).Points.Count * Constants.DAQFREQ > TIMEHISTORY)
-            {
-                (shearPlot.Series[0] as LineSeries).Points.RemoveAt(0);
-            }
+                //If there are too many elements, remove the first
+                if ((shearPlot.Series[0] as LineSeries).Points.Count*Constants.DAQFREQ > TIMEHISTORY)
+                {
+                    (shearPlot.Series[0] as LineSeries).Points.RemoveAt(0);
+                }
 
                 (shearPlot.Series[0] as LineSeries).Smooth = smoothData;
-            shearPlot.InvalidatePlot(true);
+                shearPlot.InvalidatePlot(true);
 
-
+                normalForceLabel.Content =
+                    dataAcquirer.dataPoints[dataAcquirer.dataPoints.Count - 1].normalForce.ToString("0.000");
+                shearForceLabel.Content =
+                    dataAcquirer.dataPoints[dataAcquirer.dataPoints.Count - 1].shearForce.ToString("0.000");
+            }
+            else
+            {
+                Console.WriteLine("NO DATA POINTS");
+            }
         }
     }
 }

@@ -1,7 +1,30 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
-  <Profiles>
-    <Profile Name="(Default)" />
-  </Profiles>
-  <Settings />
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="AdhesionTest.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="filePath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="motorControllerPort" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">6</Value>
+    </Setting>
+    <Setting Name="shearChannelId" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dev1/ai2</Value>
+    </Setting>
+    <Setting Name="normalChannelId" Type="System.String" Scope="User">
+      <Value Profile="(Default)">dev1/ai0</Value>
+    </Setting>
+    <Setting Name="NormalOffset" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="NormalGain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">98.1</Value>
+    </Setting>
+    <Setting Name="ShearOffset" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="ShearGain" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">98.1</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

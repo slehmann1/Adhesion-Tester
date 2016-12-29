@@ -1,0 +1,17 @@
+HOW TO INSTALL:
+
+Prior to installation download the ni-daqmx driver located here: http://www.ni.com/download/ni-daqmx-15.1.1/5665/en/
+BE CERTAIN TO SELECT .NET SUPPORT DURING INSTALLATION
+As this is a third party driver, this url may be antiquated, googling NI-DAQMX should find you the appropriate download
+
+There are two ways to install this program:
+
+Method One (Installer):
+Run the setup.exe executable located in the debug or release folder of the adhesion test installer directory
+
+THere may be some issues with stability caused by installation using the installer, in order to remedy this reinstall using method 2.
+
+Method Two:
+Copy the entirety of the debug folderm to a location on your computer. This debug folder is located in the bin folder of the Adhesion
+test directory.
+Once this is done right click on the AdhesionTest.exe file and create a shortcut on the desktop. 

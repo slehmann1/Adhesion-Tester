@@ -1,0 +1,35 @@
+﻿<Page x:Class="AdhesionTest.trialComplete"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:AdhesionTest"
+      mc:Ignorable="d"
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="trialComplete">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <TextBlock x:Name="textBlock" VerticalAlignment="Bottom" Foreground="DodgerBlue" HorizontalAlignment="Right"
+                   Margin="0,0,80,25" TextWrapping="Wrap" Text="Continue" FontSize="18" Height="24" Width="75" />
+        <TextBlock Text="Trial Complete" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Regular"
+                   FontSize="18" Opacity="0.8" />
+        <Button x:Name="continue" Grid.ZIndex="10" Margin="10,0" HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Style="{DynamicResource MetroCircleButtonStyle}" Height="70" Width="70" Grid.Column="1" Grid.Row="1"
+                Click="continue_Click">
+            <Rectangle Fill="DodgerBlue" Width="50" Height="28">
+                <Rectangle.OpacityMask>
+                    <VisualBrush Opacity="0.8" Visual="{StaticResource appbar_arrow_right}" Stretch="Uniform" />
+                </Rectangle.OpacityMask>
+            </Rectangle>
+        </Button>
+    </Grid>
+</Page>
