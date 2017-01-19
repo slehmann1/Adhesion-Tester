@@ -9,7 +9,7 @@ There are two ways to install this program:
 Method One (Installer):
 Run the setup.exe executable located in the debug or release folder of the adhesion test installer directory
 
-THere may be some issues with stability caused by installation using the installer, in order to remedy this reinstall using method 2.
+There may be some issues with stability caused by installation using the installer, in order to remedy this reinstall using method 2.
 
 Method Two:
 Copy the entirety of the debug folderm to a location on your computer. This debug folder is located in the bin folder of the Adhesion
