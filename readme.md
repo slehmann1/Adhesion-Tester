@@ -1,5 +1,5 @@
 # Adhesion Tester
-An open source solution for the automated testing of adhesives through the use of force probes. This is a WPF application written in C# over the summer of 2016 by Samuel Lehmann, at the University of Alberta, to accelerate the work of Yue Wang and Dr. Dan Sameoto. This work will be presented in a soon to be published paper.
+An open source solution for the automated testing of adhesives through the use of force probes. This is a WPF application written in C# over the summer of 2016 by Samuel Lehmann, at the University of Alberta, to accelerate the work of Yue Wang and Dr. Dan Sameoto. This work is available [here](https://www.ncbi.nlm.nih.gov/pubmed/28038311 "Paper"). 
 #### Support for both linear and radial tests
 ###### Linear Trials
 Linear tests allow the testing of adhesives in simple linear strokes, at any desired incoming or outgoing angle, with drag distances, preloads, preload wait times, velocities and more. 
